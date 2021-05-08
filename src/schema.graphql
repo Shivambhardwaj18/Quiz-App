@@ -1,11 +1,18 @@
 type Mutation {
-  signup(data: Teacher_data!): Teacher!
+  signup(data: Teacher_data!): Teacher_Return_Data!
+}
+type Query {
+  hello: String!
 }
 
 type Teacher {
   id: ID!
   name: String!
   email: String!
+}
+
+type Teacher_Return_Data {
+  user: Teacher!
   token: String!
 }
 

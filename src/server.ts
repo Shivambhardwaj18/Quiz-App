@@ -15,7 +15,12 @@ const server = new GraphQLServer({
 
 server.start({ port: process.env.PORT }, () => {
   try {
-    mongoose.connect(process.env.MONGO_DB_URL);
+    mongoose.connect(process.env.MONGO_DB_URL, {
+      useCreateIndex: true,
+      useUnifiedTopology: true,
+      useFindAndModify: false,
+      useNewUrlParser: true,
+    });
     console.log(
       Chalk.hex("#fab95b").bold(`The Server is Up ${process.env.PORT}`)
     );
