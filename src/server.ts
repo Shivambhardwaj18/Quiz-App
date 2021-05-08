@@ -1,9 +1,16 @@
+import dotenv from "dotenv";
 import { GraphQLServer } from "graphql-yoga";
 import Chalk from "chalk";
 import mongoose from "mongoose";
+import Mutation from "./resolvers/mutation";
+
+dotenv.config();
 
 const server = new GraphQLServer({
   typeDefs: "./src/schema.graphql",
+  resolvers: {
+    Mutation,
+  },
 });
 
 server.start({ port: process.env.PORT }, () => {

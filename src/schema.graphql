@@ -1,5 +1,16 @@
+type Mutation {
+  signup(data: Teacher_data!): Teacher!
+}
+
 type Teacher {
   id: ID!
   name: String!
   email: String!
+  token: String!
+}
+
+input Teacher_data {
+  name: String!
+  email: String!
+  password: String
 }
