@@ -2,11 +2,12 @@
   "name": "quiz-project",
   "version": "1.0.0",
   "description": "",
-  "main": "server.ts",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "tsc && nodemon src/server.ts --ext ts,graphql",
-    "start": "tsc && node src/server.ts --ext ts,graphql"
+    "watch-ts": "tsc -w",
+    "server": "nodemon dist/src/server.js",
+    "start": "node dist/src/server.js"
   },
   "dependencies": {
     "apollo-server-core": "^2.23.0",
