@@ -19,7 +19,7 @@ const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const signup = (parent, args, ctx, info) => __awaiter(void 0, void 0, void 0, function* () {
     let existingTeacher;
     try {
-        existingTeacher = yield teacher_1.default.findOne({ email: args.data.email });
+        existingTeacher = yield teacher_1.default.findOne({ email: args.email });
     }
     catch (e) {
         throw new Error(e);
@@ -29,14 +29,14 @@ const signup = (parent, args, ctx, info) => __awaiter(void 0, void 0, void 0, fu
     }
     let hashedPassword;
     try {
-        hashedPassword = yield bcryptjs_1.default.hash(args.data.password, 12);
+        hashedPassword = yield bcryptjs_1.default.hash(args.password, 12);
     }
     catch (e) {
         throw new Error();
     }
     let newTeacher;
     try {
-        newTeacher = yield teacher_1.default.create(Object.assign(Object.assign({}, args.data), { password: hashedPassword }));
+        newTeacher = yield teacher_1.default.create(Object.assign(Object.assign({}, args), { password: hashedPassword }));
     }
     catch (e) {
         throw new Error(e);

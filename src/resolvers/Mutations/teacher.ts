@@ -5,18 +5,16 @@ import bcrypt from "bcryptjs";
 export const signup = async (
   parent,
   args: {
-    data: {
-      name: string;
-      email: string;
-      password: string;
-    };
+    name: string;
+    email: string;
+    password: string;
   },
   ctx,
   info
 ): Promise<object> => {
   let existingTeacher;
   try {
-    existingTeacher = await Teacher.findOne({ email: args.data.email });
+    existingTeacher = await Teacher.findOne({ email: args.email });
   } catch (e) {
     throw new Error(e);
   }
@@ -26,7 +24,7 @@ export const signup = async (
   }
   let hashedPassword: string;
   try {
-    hashedPassword = await bcrypt.hash(args.data.password, 12);
+    hashedPassword = await bcrypt.hash(args.password, 12);
   } catch (e) {
     throw new Error();
   }
@@ -34,7 +32,7 @@ export const signup = async (
 
   try {
     newTeacher = await Teacher.create({
-      ...args.data,
+      ...args,
       password: hashedPassword,
     });
   } catch (e) {
