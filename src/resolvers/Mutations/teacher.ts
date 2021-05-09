@@ -16,17 +16,17 @@ export const signup = async (
   try {
     existingTeacher = await Teacher.findOne({ email: args.email });
   } catch (e) {
-    throw new Error(e);
+    throw new Error("Network error");
   }
 
   if (existingTeacher) {
-    throw new Error("email already in use");
+    throw new Error("Email already taken");
   }
   let hashedPassword: string;
   try {
     hashedPassword = await bcrypt.hash(args.password, 12);
   } catch (e) {
-    throw new Error();
+    throw new Error("Network error");
   }
   let newTeacher: any;
 
@@ -36,7 +36,7 @@ export const signup = async (
       password: hashedPassword,
     });
   } catch (e) {
-    throw new Error(e);
+    throw new Error("Network error");
   }
   const token = jwt.sign(
     { id: newTeacher._id, userName: newTeacher.userName },
@@ -59,7 +59,7 @@ export const login = async (
   try {
     const existingTeacher: any = await Teacher.findOne({ email: args.email });
     if (!existingTeacher) {
-      throw new Error("Teacher doesNot exist");
+      throw new Error("Email doesnot exist");
     }
     const match = await bcrypt.compare(args.password, existingTeacher.password);
     if (!match) {
@@ -76,6 +76,6 @@ export const login = async (
     };
     return returnData;
   } catch (e) {
-    throw new Error(e);
+    throw new Error("Network error");
   }
 };
