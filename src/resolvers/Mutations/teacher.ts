@@ -38,10 +38,7 @@ export const signup = async (
   } catch (e) {
     throw new Error("Network error");
   }
-  const token = jwt.sign(
-    { id: newTeacher._id, userName: newTeacher.userName },
-    process.env.SECRET
-  );
+  const token = jwt.sign({ id: newTeacher._id }, process.env.SECRET);
   const returnData: object = {
     user: newTeacher,
     token,
@@ -65,10 +62,7 @@ export const login = async (
     if (!match) {
       throw new Error("Incorrect password");
     }
-    const token = jwt.sign(
-      { id: existingTeacher._id, userName: existingTeacher.userName },
-      process.env.SECRET
-    );
+    const token = jwt.sign({ id: existingTeacher._id }, process.env.SECRET);
 
     const returnData: object = {
       user: existingTeacher,

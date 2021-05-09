@@ -22,26 +22,26 @@ const signup = (parent, args, ctx, info) => __awaiter(void 0, void 0, void 0, fu
         existingTeacher = yield teacher_1.default.findOne({ email: args.email });
     }
     catch (e) {
-        throw new Error(e);
+        throw new Error("Network error");
     }
     if (existingTeacher) {
-        throw new Error("email already in use");
+        throw new Error("Email already taken");
     }
     let hashedPassword;
     try {
         hashedPassword = yield bcryptjs_1.default.hash(args.password, 12);
     }
     catch (e) {
-        throw new Error();
+        throw new Error("Network error");
     }
     let newTeacher;
     try {
         newTeacher = yield teacher_1.default.create(Object.assign(Object.assign({}, args), { password: hashedPassword }));
     }
     catch (e) {
-        throw new Error(e);
+        throw new Error("Network error");
     }
-    const token = jsonwebtoken_1.default.sign({ id: newTeacher._id, userName: newTeacher.userName }, process.env.SECRET);
+    const token = jsonwebtoken_1.default.sign({ id: newTeacher._id }, process.env.SECRET);
     const returnData = {
         user: newTeacher,
         token,
@@ -54,13 +54,13 @@ const login = (parent, args, ctx, info) => __awaiter(void 0, void 0, void 0, fun
     try {
         const existingTeacher = yield teacher_1.default.findOne({ email: args.email });
         if (!existingTeacher) {
-            throw new Error("Teacher doesNot exist");
+            throw new Error("Email doesnot exist");
         }
         const match = yield bcryptjs_1.default.compare(args.password, existingTeacher.password);
         if (!match) {
             throw new Error("Incorrect password");
         }
-        const token = jsonwebtoken_1.default.sign({ id: existingTeacher._id, userName: existingTeacher.userName }, process.env.SECRET);
+        const token = jsonwebtoken_1.default.sign({ id: existingTeacher._id }, process.env.SECRET);
         const returnData = {
             user: existingTeacher,
             token,
@@ -68,7 +68,7 @@ const login = (parent, args, ctx, info) => __awaiter(void 0, void 0, void 0, fun
         return returnData;
     }
     catch (e) {
-        throw new Error(e);
+        throw new Error("Network error");
     }
 });
 exports.login = login;
