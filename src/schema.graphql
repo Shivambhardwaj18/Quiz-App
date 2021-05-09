@@ -1,5 +1,6 @@
 type Mutation {
   signup(name: String!, email: String!, password: String!): Teacher_Return_Data!
+  login(email: String!, password: String!): Teacher_Return_Data!
 }
 type Query {
   hello: String!

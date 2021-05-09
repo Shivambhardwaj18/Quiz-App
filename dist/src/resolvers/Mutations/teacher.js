@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.signup = void 0;
+exports.login = exports.signup = void 0;
 const teacher_1 = __importDefault(require("../../../model/teacher"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
@@ -50,4 +50,26 @@ const signup = (parent, args, ctx, info) => __awaiter(void 0, void 0, void 0, fu
     return returnData;
 });
 exports.signup = signup;
+const login = (parent, args, ctx, info) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const existingTeacher = yield teacher_1.default.findOne({ email: args.email });
+        if (!existingTeacher) {
+            throw new Error("Teacher doesNot exist");
+        }
+        const match = yield bcryptjs_1.default.compare(args.password, existingTeacher.password);
+        if (!match) {
+            throw new Error("Incorrect password");
+        }
+        const token = jsonwebtoken_1.default.sign({ id: existingTeacher._id, userName: existingTeacher.userName }, process.env.SECRET);
+        const returnData = {
+            user: existingTeacher,
+            token,
+        };
+        return returnData;
+    }
+    catch (e) {
+        throw new Error(e);
+    }
+});
+exports.login = login;
 //# sourceMappingURL=teacher.js.map
