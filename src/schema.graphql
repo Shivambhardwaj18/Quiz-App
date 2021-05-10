@@ -1,19 +1,29 @@
 type Mutation {
   signup(name: String!, email: String!, password: String!): Teacher_Return_Data!
   login(email: String!, password: String!): Teacher_Return_Data!
+  addSubject(name: String!): Subject!
 }
 
 type Query {
   me: Teacher!
+  hello: String!
 }
 
 type Teacher {
   id: ID!
   name: String!
   email: String!
+  subjects: [Subject]!
 }
 
 type Teacher_Return_Data {
   user: Teacher!
   token: String!
+  subjects: [Subject]!
+}
+
+type Subject {
+  id: ID!
+  name: String!
+  teacher: Teacher!
 }

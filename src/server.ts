@@ -4,6 +4,8 @@ import Chalk from "chalk";
 import mongoose from "mongoose";
 import Mutation from "./resolvers/mutation";
 import Query from "./resolvers/query";
+import Teacher from "./resolvers/Mutations/childMutations/teacher"
+import Subject from "./resolvers/Mutations/childMutations/subject"
 
 dotenv.config();
 
@@ -12,6 +14,8 @@ const server = new GraphQLServer({
   resolvers: {
     Query,
     Mutation,
+    Teacher,
+    Subject
   },
   context: (request) => {
     return {

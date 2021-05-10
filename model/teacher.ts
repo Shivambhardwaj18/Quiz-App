@@ -13,6 +13,13 @@ const teacherSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  subjects: [
+    {
+      type: mongoose.Types.ObjectId,
+      required: false,
+      ref: "Subject",
+    },
+  ],
 });
 
 const Teacher = mongoose.model("Teacher", teacherSchema);

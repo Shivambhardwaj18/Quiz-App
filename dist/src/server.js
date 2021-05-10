@@ -9,12 +9,16 @@ const chalk_1 = __importDefault(require("chalk"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const mutation_1 = __importDefault(require("./resolvers/mutation"));
 const query_1 = __importDefault(require("./resolvers/query"));
+const teacher_1 = __importDefault(require("./resolvers/Mutations/childMutations/teacher"));
+const subject_1 = __importDefault(require("./resolvers/Mutations/childMutations/subject"));
 dotenv_1.default.config();
 const server = new graphql_yoga_1.GraphQLServer({
     typeDefs: "./src/schema.graphql",
     resolvers: {
         Query: query_1.default,
         Mutation: mutation_1.default,
+        Teacher: teacher_1.default,
+        Subject: subject_1.default
     },
     context: (request) => {
         return Object.assign({}, request);

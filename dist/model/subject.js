@@ -10,6 +10,11 @@ const subjectSchema = new mongoose_1.default.Schema({
         type: String,
         required: true,
     },
+    teacher: {
+        type: mongoose_1.default.Types.ObjectId,
+        required: true,
+        ref: "Teacher",
+    },
 });
 const Subject = mongoose_1.default.model("Subject", subjectSchema);
 exports.default = Subject;

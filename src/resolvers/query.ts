@@ -4,6 +4,7 @@ import { getUserId } from "../utils";
 const Query = {
   me: async (parent, args, ctx, info) => {
     let id = getUserId(ctx);
+    console.log(id);
     let requiredUser: object;
     try {
       requiredUser = await Teacher.findById(id);
@@ -11,6 +12,9 @@ const Query = {
       throw new Error(e);
     }
     return requiredUser;
+  },
+  hello: () => {
+    return "hello";
   },
 };
 

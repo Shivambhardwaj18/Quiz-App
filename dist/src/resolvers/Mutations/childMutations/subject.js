@@ -13,24 +13,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = void 0;
-const teacher_1 = __importDefault(require("../../model/teacher"));
-const utils_1 = require("../utils");
-const Query = {
-    me: (parent, args, ctx, info) => __awaiter(void 0, void 0, void 0, function* () {
-        let id = utils_1.getUserId(ctx);
-        console.log(id);
-        let requiredUser;
+const teacher_1 = __importDefault(require("../../../../model/teacher"));
+const Subject = {
+    teacher: (parent, args, ctx, info) => __awaiter(void 0, void 0, void 0, function* () {
+        let teacher;
         try {
-            requiredUser = yield teacher_1.default.findById(id);
+            teacher = teacher_1.default.findById(parent.teacher);
         }
         catch (e) {
             throw new Error(e);
         }
-        return requiredUser;
+        return teacher;
     }),
-    hello: () => {
-        return "hello";
-    },
 };
-exports.default = Query;
-//# sourceMappingURL=query.js.map
+exports.default = Subject;
+//# sourceMappingURL=subject.js.map
