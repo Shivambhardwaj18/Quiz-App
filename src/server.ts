@@ -3,13 +3,20 @@ import { GraphQLServer } from "graphql-yoga";
 import Chalk from "chalk";
 import mongoose from "mongoose";
 import Mutation from "./resolvers/mutation";
+import Query from "./resolvers/query";
 
 dotenv.config();
 
 const server = new GraphQLServer({
   typeDefs: "./src/schema.graphql",
   resolvers: {
+    Query,
     Mutation,
+  },
+  context: (request) => {
+    return {
+      ...request,
+    };
   },
 });
 

@@ -8,11 +8,16 @@ const graphql_yoga_1 = require("graphql-yoga");
 const chalk_1 = __importDefault(require("chalk"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const mutation_1 = __importDefault(require("./resolvers/mutation"));
+const query_1 = __importDefault(require("./resolvers/query"));
 dotenv_1.default.config();
 const server = new graphql_yoga_1.GraphQLServer({
     typeDefs: "./src/schema.graphql",
     resolvers: {
+        Query: query_1.default,
         Mutation: mutation_1.default,
+    },
+    context: (request) => {
+        return Object.assign({}, request);
     },
 });
 server.start({ port: process.env.PORT }, () => {
