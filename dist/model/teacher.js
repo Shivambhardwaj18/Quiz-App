@@ -18,13 +18,6 @@ const teacherSchema = new mongoose_1.default.Schema({
         type: String,
         required: true,
     },
-    subjects: [
-        {
-            type: mongoose_1.default.Types.ObjectId,
-            required: false,
-            ref: "Subject",
-        },
-    ],
 });
 const Teacher = mongoose_1.default.model("Teacher", teacherSchema);
 exports.default = Teacher;

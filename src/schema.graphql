@@ -2,6 +2,7 @@ type Mutation {
   signup(name: String!, email: String!, password: String!): Teacher_Return_Data!
   login(email: String!, password: String!): Teacher_Return_Data!
   addSubject(name: String!): Subject!
+  deleteSubject(name: String!): String!
 }
 
 type Query {

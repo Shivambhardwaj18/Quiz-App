@@ -35,14 +35,43 @@ export const addSubject = async (
       ...args,
       teacher: requiredTeacher,
     });
-    await Teacher.findOneAndUpdate(
-      { _id: id },
-      {
-        $push: { subjects: newSubject },
-      }
-    );
   } catch (e) {
     throw new Error(e);
   }
   return newSubject;
+};
+
+export const deleteSubject = async (
+  parent,
+  args: {
+    name: String;
+  },
+  ctx,
+  info
+) => {
+  let id = getUserId(ctx);
+  console.log(id);
+  let requiredTeacher: any, subjectExists: any;
+  try {
+    requiredTeacher = await Teacher.findById(id);
+  } catch (e) {
+    throw new Error(e);
+  }
+  try {
+    subjectExists = await Subject.findOne({
+      name: args.name,
+      teacher: requiredTeacher._id,
+    });
+  } catch (e) {
+    throw new Error(e);
+  }
+  if (!subjectExists) {
+    throw new Error("Subjct doesnot exists");
+  }
+  try {
+    await Subject.findOneAndDelete({ name: args.name });
+  } catch (e) {
+    throw new Error(e);
+  }
+  return "sUBJECT DELETED";
 };

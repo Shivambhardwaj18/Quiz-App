@@ -7,6 +7,7 @@ const Mutation = {
     signup: teacher_1.signup,
     login: teacher_1.login,
     addSubject: subjects_1.addSubject,
+    deleteSubject: subjects_1.deleteSubject,
 };
 exports.default = Mutation;
 //# sourceMappingURL=mutation.js.map
